@@ -41,7 +41,7 @@ GLFWwindow* window;
 GLuint vertex_shader, fragment_shader, shader, mshader, lshader;
 GLint mvp_location, vpos_location, vcol_location;
 GLint m_mvp_location, m_vpos_location, m_vcol_location, m_vnor_location;
-GLint light_ambient,light_specular,light_diffuse, light_dir, viewPos, m_model_location;
+GLint light_ambient, light_specular, light_diffuse, light_dir, viewPos, m_model_location;
 GLuint kVBO, kEBO;
 GLuint kVAO;
 glm::vec3* pos;
@@ -56,7 +56,7 @@ ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 //鼠标交互状态变换
 float lastX = 400, lastY = 300, lastZ = 0;
 float dx = 0.0f, dy = 0.0f;
-float pitch = 0.0f, yaw = 0.0f,roll = 0.0f;
+float pitch = 0.0f, yaw = 0.0f, roll = 0.0f;
 bool firstMouse = true;
 
 
@@ -110,7 +110,7 @@ void init_opengl()
 }
 
 //编译、链接Shader
-GLuint compile_shader(const char* vertex,const char* fragment)
+GLuint compile_shader(const char* vertex, const char* fragment)
 {
     //创建顶点Shader
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -285,7 +285,7 @@ void drawModel()
     glUniform3fv(light_ambient, 1, &lightAmbient[0]);
     glUniform3fv(light_specular, 1, &lightSpecular[0]);
     glUniform3fv(light_diffuse, 1, &lightDiffuse[0]);
-    
+
 
     //TODO:索引绘制
     // 使用 EBO 绘制模型（索引绘制）
@@ -307,7 +307,7 @@ int main(void)
     init_opengl();
 
     //传入着色器源码
-    shader = compile_shader(vertex_shader_text,fragment_shader_text);
+    shader = compile_shader(vertex_shader_text, fragment_shader_text);
     mshader = compile_shader(mvertex_shader_text, mfragment_shader_text);
 
     Init_imgui();
@@ -324,7 +324,7 @@ int main(void)
     light_ambient = glGetUniformLocation(mshader, "light.ambient");
     light_diffuse = glGetUniformLocation(mshader, "light.diffuse");
     light_specular = glGetUniformLocation(mshader, "light.specular");
-    
+
 
     viewPos = glGetUniformLocation(mshader, "viewPos");
     m_model_location = glGetUniformLocation(mshader, "model");
@@ -341,7 +341,7 @@ int main(void)
     {
         cameraPos = glm::vec3(0, 0, 10);
 
-        if(lineMode)
+        if (lineMode)
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式
         else
         {
@@ -393,7 +393,7 @@ int main(void)
                 id = 5;
                 loaded = loadObjFile();
             }
-                
+
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::End();
@@ -433,8 +433,8 @@ int main(void)
         }
 
         //坐标系变换
-        if(id == 2)
-        rotation = glm::rotate(rotation, glm::radians(1.0f), glm::vec3(0, 1, 0));
+        if (id == 2)
+            rotation = glm::rotate(rotation, glm::radians(1.0f), glm::vec3(0, 1, 0));
 
         scale = glm::scale(glm::vec3(scaleNum, scaleNum, scaleNum)); //缩放;
 
@@ -470,7 +470,7 @@ int main(void)
         //绘制模型
         else
         {
-            if(loaded) drawModel();
+            if (loaded) drawModel();
         }
 
         ImGui::Render();
