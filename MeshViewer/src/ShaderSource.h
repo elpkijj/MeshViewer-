@@ -31,3 +31,5 @@ static const char* fragment_shader_text =
 "}\n";
 
 #endif //UNTITLED_SHADERSOURCE_H
+//一旦在顶点着色器中处理过后（图元，形状）就会标准化范围至-1到1
+//gl_position是顶点着色器的输出，是vec4,因此在三维坐标加上1.0f

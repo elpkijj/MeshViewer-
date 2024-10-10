@@ -30,31 +30,46 @@ public:
             glm::vec3 p1Bottom = glm::vec3(radius * cos(theta), -height / 2, radius * sin(theta));
             glm::vec3 p2Bottom = glm::vec3(radius * cos(nextTheta), -height / 2, radius * sin(nextTheta));
 
-            // 顶点1：侧面第一个点 (p1Top)
-            kPositions[i * 12] = p1Top;
-            kColors[i * 12] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 红色
-
-            // 顶点2：侧面第二个点 (p2Top)
-            kPositions[i * 12 + 1] = p2Top;
-            kColors[i * 12 + 1] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 绿色
-
-            // 顶点3：侧面底部第一个点 (p1Bottom)
-            kPositions[i * 12 + 2] = p1Bottom;
-            kColors[i * 12 + 2] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 蓝色
-
-            // 顶点4：侧面底部第二个点 (p2Bottom)
-            kPositions[i * 12 + 3] = p2Bottom;
-            kColors[i * 12 + 3] = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f); // 黄色
-
-            // 顶点5：顶面中心 (baseCenterTop)
+            // 顶面绘制中心点和周围顶点
             glm::vec3 baseCenterTop = glm::vec3(0.0f, height / 2, 0.0f);
-            kPositions[i * 12 + 4] = baseCenterTop;
-            kColors[i * 12 + 4] = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f); // 灰色
+            kPositions[i * 12] = p1Top;
+            kColors[i * 12] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 顶面绿色
 
-            // 顶点6：底面中心 (baseCenterBottom)
+            kPositions[i * 12 + 1] = p2Top;
+            kColors[i * 12 + 1] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 顶面绿色
+
+            kPositions[i * 12 + 2] = baseCenterTop;
+            kColors[i * 12 + 2] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 顶面中心绿色
+
+            // 底面绘制中心点和周围顶点
             glm::vec3 baseCenterBottom = glm::vec3(0.0f, -height / 2, 0.0f);
+            kPositions[i * 12 + 3] = p1Bottom;
+            kColors[i * 12 + 3] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 底面绿色
+
+            kPositions[i * 12 + 4] = p2Bottom;
+            kColors[i * 12 + 4] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 底面绿色
+
             kPositions[i * 12 + 5] = baseCenterBottom;
-            kColors[i * 12 + 5] = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f); // 灰色
+            kColors[i * 12 + 5] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 底面中心绿色
+
+            // 侧面
+            kPositions[i * 12 + 6] = p1Top;
+            kColors[i * 12 + 6] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
+
+            kPositions[i * 12 + 7] = p1Bottom;
+            kColors[i * 12 + 7] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
+
+            kPositions[i * 12 + 8] = p2Bottom;
+            kColors[i * 12 + 8] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
+
+            kPositions[i * 12 + 9] = p2Bottom;
+            kColors[i * 12 + 9] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
+
+            kPositions[i * 12 + 10] = p2Top;
+            kColors[i * 12 + 10] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
+
+            kPositions[i * 12 + 11] = p1Top;
+            kColors[i * 12 + 11] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 侧面绿色
         }
     }
 

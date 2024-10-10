@@ -36,33 +36,33 @@ public:
 
             // 顶点1：圆锥顶点
             kPositions[i * 6] = coneTop;
-            kColors[i * 6] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 红色
+            kColors[i * 6] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6] = normal1; // 侧面法线
 
             // 顶点2：底面第一个点
             kPositions[i * 6 + 1] = p1;
-            kColors[i * 6 + 1] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 绿色
+            kColors[i * 6 + 1] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6 + 1] = normal1; // 侧面法线
 
             // 顶点3：底面第二个点
             kPositions[i * 6 + 2] = p2;
-            kColors[i * 6 + 2] = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 蓝色
+            kColors[i * 6 + 2] = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6 + 2] = normal1; // 侧面法线
 
             // 顶点4：底面中心
             glm::vec3 baseCenter = glm::vec3(0.0f, -height / 2, 0.0f);
             kPositions[i * 6 + 3] = baseCenter;
-            kColors[i * 6 + 3] = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f); // 灰色
+            kColors[i * 6 + 3] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6 + 3] = glm::vec3(0.0f, -1.0f, 0.0f); // 底面法线
 
             // 顶点5：底面第一个点
             kPositions[i * 6 + 4] = p1;
-            kColors[i * 6 + 4] = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f); // 灰色
+            kColors[i * 6 + 4] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6 + 4] = glm::vec3(0.0f, -1.0f, 0.0f); // 底面法线
 
             // 顶点6：底面第二个点
             kPositions[i * 6 + 5] = p2;
-            kColors[i * 6 + 5] = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f); // 灰色
+            kColors[i * 6 + 5] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); // 统一红色
             kNormals[i * 6 + 5] = glm::vec3(0.0f, -1.0f, 0.0f); // 底面法线
         }
     }
