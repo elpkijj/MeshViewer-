@@ -208,98 +208,81 @@ bool loadObjFile()
     return false;
 }
 
+
+
 void drawModel()
 {
-    //TODO:设置绘制模型所用VAO，VBO
-    // 生成和绑定 VAO（顶点数组对象）
     GLuint VAO, VBO, NBO, EBO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    // 分配和初始化 VBO（顶点缓冲对象），用于存储顶点位置数据
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    // 创建一个顶点数组，存储模型的所有顶点
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec3> normals;
     std::vector<unsigned int> indices;
 
-    // 从 obj 中获取顶点和法线数据
+    // 获取顶点和法线数据
     for (size_t i = 0; i < obj.m_pts.size(); i++) {
-        vertices.push_back(glm::vec3(obj.m_pts[i].pos.fX, obj.m_pts[i].pos.fY, obj.m_pts[i].pos.fZ));
-        normals.push_back(glm::vec3(obj.m_pts[i].normal.fX, obj.m_pts[i].normal.fY, obj.m_pts[i].normal.fZ));
+        vertices.push_back(obj.m_pts[i].pos);
+        normals.push_back(obj.m_pts[i].normal);  // 确保法线已经计算并传递给顶点
     }
 
-    // 从 obj 中获取面的索引
+    // 获取面的顶点索引
     for (size_t i = 0; i < obj.m_faces.size(); i++) {
         indices.push_back(obj.m_faces[i].pts[0] - 1);
         indices.push_back(obj.m_faces[i].pts[1] - 1);
         indices.push_back(obj.m_faces[i].pts[2] - 1);
     }
 
-    // 将顶点数据传送到 GPU
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
 
-    // 配置顶点属性指针
+    // 绑定顶点属性
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0); // 顶点位置属性
+    glEnableVertexAttribArray(0);
 
-    // 创建法线缓冲对象并将法线数据传输到 GPU
+    // 绑定法线缓冲对象
     glGenBuffers(1, &NBO);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), normals.data(), GL_STATIC_DRAW);
 
-    // 配置法线属性指针
+    // 配置法线属性
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1); // 法线属性
+    glEnableVertexAttribArray(1);  // 启用法线属性
 
-    // 创建 EBO（元素缓冲对象），用于存储索引
+    // 创建 EBO，存储索引
     glGenBuffers(1, &EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-    // 启用深度测试，防止图像出现重叠问题
     glEnable(GL_DEPTH_TEST);
-
-    // 使用已编译的 shader 程序
     glUseProgram(mshader);
 
-    // 上传 MVP 矩阵和其他 uniforms
     glUniformMatrix4fv(m_mvp_location, 1, GL_FALSE, &mvp[0][0]);
     glUniform3fv(viewPos, 1, &cameraPos[0]);
     glUniformMatrix4fv(m_model_location, 1, GL_FALSE, &model[0][0]);
 
-
-    glm::vec3 lightDir = glm::vec3(0.0f, -1.0f, -1.0f);
+    glm::vec3 lightDir = glm::vec3(0.0f, -1.0f, -1.0f);  // 可以尝试调整角度
     glm::vec3 lightAmbient = glm::vec3(0.2f, 0.2f, 0.2f);
     glm::vec3 lightDiffuse = glm::vec3(0.5f, 0.5f, 0.5f);
     glm::vec3 lightSpecular = glm::vec3(1.0f, 1.0f, 1.0f);
 
-    //平型光照设置
-    glUseProgram(mshader);
-    glUniformMatrix4fv(m_mvp_location, 1, GL_FALSE, &mvp[0][0]);
-    glUniform3fv(viewPos, 1, &cameraPos[0]);
-    glUniformMatrix4fv(m_model_location, 1, GL_FALSE, &model[0][0]);
+    // 平行光设置
     glUniform3fv(light_dir, 1, &lightDir[0]);
     glUniform3fv(light_ambient, 1, &lightAmbient[0]);
     glUniform3fv(light_specular, 1, &lightSpecular[0]);
     glUniform3fv(light_diffuse, 1, &lightDiffuse[0]);
 
-
-    //TODO:索引绘制
-    // 使用 EBO 绘制模型（索引绘制）
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
-    // 解绑 VAO
     glBindVertexArray(0);
-
-    // 删除缓冲对象
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &NBO);
     glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
 }
+
 
 
 int main(void)
